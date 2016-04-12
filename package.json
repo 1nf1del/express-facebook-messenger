@@ -1,0 +1,22 @@
+{
+  "name": "express-facebook-messenger",
+  "version": "0.0.1",
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ],
+  "description": "Tiny Facebook Messenger Bot utilty",
+  "author": "Mitchel Kelonye <kelonyemitchel@gmail.com>",
+  "devDependencies": {},
+  "main": "lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kelonye/express-facebook-messenger.git"
+  },
+  "dependencies": {
+    "debug": "^2.2.0",
+    "express": "^4.13.4",
+    "superagent": "^1.8.3"
+  }
+}
