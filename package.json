@@ -8,7 +8,9 @@
   ],
   "description": "Tiny Facebook Messenger Bot utilty",
   "author": "Mitchel Kelonye <kelonyemitchel@gmail.com>",
-  "devDependencies": {},
+  "devDependencies": {
+    "body-parser": "^1.15.0"
+  },
   "main": "lib/index.js",
   "repository": {
     "type": "git",
