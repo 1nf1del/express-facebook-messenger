@@ -9,7 +9,13 @@
   "description": "Tiny Facebook Messenger Bot utilty",
   "author": "Mitchel Kelonye <kelonyemitchel@gmail.com>",
   "devDependencies": {
-    "body-parser": "^1.15.0"
+    "ava": "^0.14.0",
+    "body-parser": "^1.15.0",
+    "sinon": "^1.17.3",
+    "steed": "^1.1.3"
+  },
+  "scripts": {
+    "test": "ava"
   },
   "main": "lib/index.js",
   "repository": {
