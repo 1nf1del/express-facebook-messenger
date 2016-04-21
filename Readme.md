@@ -22,19 +22,15 @@ var bot = require('../lib/')({
   pageAccessToken: '<token>'
 });
 
-
-var app = express();
-
 bot.on('message', function(senderId, msg){
   this.send(senderId, {
     text: 'Hello to you too!'
   });
 });
 
+var app = express();
 app.use(bodyParser.json());
-
 app.use('/hook', bot.router());
-
 app.listen(5000);
 
 ```

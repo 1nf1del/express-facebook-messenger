@@ -23,7 +23,7 @@ test('should support different tokens', t => {
   t.is(bot._pageAccessToken, pToken);
 });
 
-test('should emit message-malformed', t => {
+test('should emit message-malformed if no messages are sent', t => {
   let bot = new Bot(123);
   let messageSpy = sinon.spy();
   let malformedMessageSpy = sinon.spy();
@@ -38,7 +38,7 @@ test('should emit message-malformed', t => {
   });
 });
 
-test('should not emit message or message-malformed', t => {
+test('should emit message-malformed if message contains no sender id', t => {
   let bot = new Bot(123);
   let messageSpy = sinon.spy();
   let malformedMessageSpy = sinon.spy();
@@ -52,7 +52,7 @@ test('should not emit message or message-malformed', t => {
           messaging: [
             {
               sender: {
-                id: 123
+                
               }
             }
           ]
@@ -61,11 +61,11 @@ test('should not emit message or message-malformed', t => {
     }
   }, () => {
     t.false(messageSpy.calledOnce);
-    t.false(malformedMessageSpy.calledOnce);
+    t.true(malformedMessageSpy.calledOnce);
   });
 });
 
-test('should emit message', t => {
+test('should emit message if it contains sender and body', t => {
   let bot = new Bot(123);
   let messageSpy = sinon.spy();
   let malformedMessageSpy = sinon.spy();
@@ -92,7 +92,9 @@ test('should emit message', t => {
       ]
     }
   }, () => {
-    t.true(messageSpy.calledWith(senderId, msg));
+    t.true(messageSpy.calledWith(senderId, {
+      text: msg,
+    }));
     t.false(malformedMessageSpy.calledOnce);
   });
 });
@@ -101,8 +103,18 @@ test('should emit multiple messages', t => {
   let bot = new Bot(123);
   let messageSpy = sinon.spy();
   let malformedMessageSpy = sinon.spy();
-  let senderId = 123;
-  let msg = 'Hi there!';
+  let sender1 = {
+    id: 123
+  };
+  let sender2 = {
+    id: 123
+  };
+  let msg1 = {
+    text: 'Hi there!'
+  };
+  let msg2 = {
+    text: 'Hi there 2!'
+  };
 
   bot.on('message', messageSpy);
   bot.on('message-malformed', malformedMessageSpy);
@@ -112,20 +124,12 @@ test('should emit multiple messages', t => {
         {
           messaging: [
             {
-              sender: {
-                id: senderId
-              },
-              message: {
-                text: msg
-              }
+              sender: sender1,
+              message: msg1,
             },
             {
-              sender: {
-                id: senderId + 2
-              },
-              message: {
-                text: msg + 2
-              }
+              sender: sender2,
+              message: msg2,
             }
           ]
         }
@@ -133,8 +137,8 @@ test('should emit multiple messages', t => {
     }
   }, () => {
     t.true(messageSpy.calledTwice);
-    t.true(messageSpy.calledWith(senderId, msg));
-    t.true(messageSpy.calledWith(senderId + 2, msg + 2));
+    t.true(messageSpy.calledWith(sender1.id, msg1));
+    t.true(messageSpy.calledWith(sender2.id, msg2));
     t.false(malformedMessageSpy.calledOnce);
   });
 });
