@@ -1,4 +1,7 @@
 test:
-	@DEBUG=messenger node $@/simple.js
+	@npm test
 
-.PHONY: test
+example:
+	@DEBUG=messenger node example/$(o).js
+
+.PHONY: example test
