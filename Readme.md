@@ -14,13 +14,13 @@ npm install express-facebook-messenger
 var express = require('express');
 var bodyParser = require('body-parser');
 var bot = require('../lib/')('<token>');
-// OR
-/*
+
+// or
+
 var bot = require('../lib/')({
   validationToken: '<token>',
   pageAccessToken: '<token>'
 });
-*/
 
 
 var app = express();
