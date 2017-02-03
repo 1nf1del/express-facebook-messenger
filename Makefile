@@ -1,3 +1,5 @@
+o ?= simple
+
 test:
 	@npm test
 

@@ -1,9 +1,13 @@
 /**
   * Module dependencies.
   */
+require('dotenv').config();
 var express = require('express');
 var bodyParser = require('body-parser');
-var bot = require('../lib/')(process.env.TOKEN);
+var bot = require('../lib/')({
+  validationToken: process.env.VALIDATION_TOKEN,
+  pageAccessToken: process.env.PAGE_ACCESS_TOKEN,
+});
 
 bot.on('message', function(senderId, msg){
   this.send(senderId, {
